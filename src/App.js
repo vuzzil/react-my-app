@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { StyledEngineProvider, CssBaseline } from '@mui/material';
+
+//theme
+import { createTheme } from '@mui/material/styles';
+import { green, purple } from '@mui/material/colors';
+
+// routing
+import Routes from './routes';
+
+const theme = createTheme({
+  palette: {
+
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: green[500],
+      light: green[50],
+      dark: green[600],
+      contrastText: '#fff',
+    },
+    neutral: {
+      main: '#64748B',
+      contrastText: '#fff',
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Routes />
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }
 
