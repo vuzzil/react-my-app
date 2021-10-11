@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 
-import { Container, Box, Button, Stack, Paper, Divider } from "@mui/material";
+import { Container, Box, Button, Stack, Paper, Divider, ToggleButtonGroup, ToggleButton, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import { styled } from '@mui/material/styles';
 // import { blue } from '@mui/material/colors';
+
+import { CustomThemeContext } from '../themes/CustomThemeProvider';
 
 //import axios from "axios";
 
@@ -48,71 +50,98 @@ const StyleButton = styled(Button)(({ theme }) => ({
 }));
 
 
-class Home extends Component {
-
-    render() {
-        return (
-            <React.Fragment>
-                <Container style={{ marginTop: "0px" }} maxWidth="md">
-
-                    <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} >
-                        <p>Home</p>
-                        <Button color="primary" variant="contained">
-                            primary
-                        </Button>
-                        <Button color="secondary" variant="contained">
-                            secondary
-                        </Button>
-                        <Button color="error" variant="contained">
-                            error
-                        </Button>
-                        <Button color="warning" variant="contained">
-                            warning
-                        </Button>
-                        <Button color="info" variant="contained">
-                            info
-                        </Button>
-                        <Button color="success" variant="contained">
-                            success
-                        </Button>
-                        <Button color="neutral" variant="contained">
-                            neutral
-                        </Button>
-
-                        {/*style={{ marginTop: "20px" ,marginBottom: "20px"}}*/}
-                        <Divider variant="middle" sx={{ my: '20px' }} />
 
 
-                        {/* style compoonent */}
-                        <Stack direction="row" spacing={2}>
-                            <Button variant="outlined" startIcon={<DeleteIcon />}>
-                                Delete
-                            </Button>
-                            <Button variant="contained" endIcon={<SendIcon />}>
-                                Send
-                            </Button>
-                            <Item>item1</Item>
-                        </Stack>
+export default function Home() {
+    //theme switch...........
+    const { currentTheme, setTheme } = useContext(CustomThemeContext);
 
-                        <Divider variant="middle" sx={{ my: '20px' }} />
-
-                        {/* use custom color ------------------------------------------ */}
-                        <Button variant="contained" sx={{ color: 'secondary.light' }}>
-                            secondary.light
-                        </Button>
-                        <Button variant="contained" sx={{ color: 'secondary.dark' }}>
-                            secondary.dark
-                        </Button>
-
-                        <StyleButton variant="contained">
-                            StyleButton
-                        </StyleButton>
-                    </Box>
-
-                </Container>
-            </React.Fragment>
-        );
+    const handleThemeChange = (e) => {
+        setTheme(e.target.value);
     }
+
+
+
+    return (
+        <React.Fragment>
+            <Container style={{ marginTop: "0px" }} maxWidth="md">
+
+                <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} >
+                    <p>Home</p>
+                    <Button color="primary" variant="contained">
+                        primary
+                    </Button>
+                    <Button color="secondary" variant="contained">
+                        secondary
+                    </Button>
+                    <Button color="error" variant="contained">
+                        error
+                    </Button>
+                    <Button color="warning" variant="contained">
+                        warning
+                    </Button>
+                    <Button color="info" variant="contained">
+                        info
+                    </Button>
+                    <Button color="success" variant="contained">
+                        success
+                    </Button>
+                    <Button color="neutral" variant="contained">
+                        neutral
+                    </Button>
+
+                    {/*style={{ marginTop: "20px" ,marginBottom: "20px"}}*/}
+                    <Divider variant="middle" sx={{ my: '20px' }} />
+
+
+                    {/* style compoonent */}
+                    <Stack direction="row" spacing={2}>
+                        <Button variant="outlined" startIcon={<DeleteIcon />}>
+                            Delete
+                        </Button>
+                        <Button variant="contained" endIcon={<SendIcon />}>
+                            Send
+                        </Button>
+                        <Item>item1</Item>
+                    </Stack>
+
+                    <Divider variant="middle" sx={{ my: '20px' }} />
+
+                    {/* use custom color ------------------------------------------ */}
+                    <Button variant="contained" sx={{ color: 'secondary.light' }}>
+                        secondary.light
+                    </Button>
+                    <Button variant="contained" sx={{ color: 'secondary.dark' }}>
+                        secondary.dark
+                    </Button>
+
+                    <StyleButton variant="contained">
+                        StyleButton
+                    </StyleButton>
+
+                    <Divider variant="middle" sx={{ my: '20px' }} />
+
+                    {/*  ThemeToggle ------------------------------------------ */}
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        Change Theme
+                    </Typography>
+                    <ToggleButtonGroup
+                        value={currentTheme}
+                        exclusive
+                        onChange={handleThemeChange}>
+                        <ToggleButton value='light'>
+                            light
+                        </ToggleButton>
+                        <ToggleButton value='botanical'>
+                            botanical
+                        </ToggleButton>
+                    </ToggleButtonGroup>
+                </Box>
+
+            </Container>
+        </React.Fragment>
+    );
 }
 
-export default Home;
+
+

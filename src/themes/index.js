@@ -9,6 +9,9 @@ import componentStyleOverrides from './compStyleOverride';
 import themePalette from './palette';
 import themeTypography from './typography';
 
+
+
+
 /**
  * Represent theme style and structure as per Material-UI
  * @param {JsonObject} customization customization parameter object
@@ -31,7 +34,7 @@ export function theme(customization) {
         customization
     };
 
-    
+
     return createTheme({
         direction: 'ltr',
         palette: themePalette(themeOption),
