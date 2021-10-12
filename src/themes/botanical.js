@@ -1,27 +1,24 @@
-import React from 'react';
-
 import { createTheme } from '@mui/material/styles';
 import { green, blue } from '@mui/material/colors';
 
 //botanical theme
 const botanical = createTheme({
     palette: {
-
+        mode: 'dark',
         primary: {
-            main: green[500],
-            light: green[50],
-            dark: green[600],
-            contrastText: '#fff',
+            main: '#6e8c75',
         },
         secondary: {
-            main: blue[500],
-            light: blue[50],
-            dark: blue[600],
-            contrastText: '#fff',
+            main: '#787d7a',
         },
-        neutral: {
-            main: '#64748B',
-            contrastText: '#fff',
+        warning: {
+            main: '#d6922d',
+        },
+        info: {
+            main: '#37607f',
+        },
+        success: {
+            main: '#607485',
         },
     },
 });

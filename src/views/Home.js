@@ -64,32 +64,34 @@ export default function Home() {
 
     return (
         <React.Fragment>
-            <Container style={{ marginTop: "0px" }} maxWidth="md">
+            <Container style={{ marginTop: "0px" }} padding="2">
 
-                <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} >
-                    <p>Home</p>
-                    <Button color="primary" variant="contained">
-                        primary
-                    </Button>
-                    <Button color="secondary" variant="contained">
-                        secondary
-                    </Button>
-                    <Button color="error" variant="contained">
-                        error
-                    </Button>
-                    <Button color="warning" variant="contained">
-                        warning
-                    </Button>
-                    <Button color="info" variant="contained">
-                        info
-                    </Button>
-                    <Button color="success" variant="contained">
-                        success
-                    </Button>
-                    <Button color="neutral" variant="contained">
+                <Box sx={{ height: '100vh' }} spacing={2}>
+
+                    <Stack direction="row" spacing={2}>
+                        <p>Home</p>
+                        <Button color="primary" variant="contained">
+                            primary
+                        </Button>
+                        <Button color="secondary" variant="contained">
+                            secondary
+                        </Button>
+                        <Button color="error" variant="contained">
+                            error
+                        </Button>
+                        <Button color="warning" variant="contained">
+                            warning
+                        </Button>
+                        <Button color="info" variant="contained">
+                            info
+                        </Button>
+                        <Button color="success" variant="contained">
+                            success
+                        </Button>
+                        {/* <Button color="neutral" variant="contained">
                         neutral
-                    </Button>
-
+                    </Button> */}
+                    </Stack>
                     {/*style={{ marginTop: "20px" ,marginBottom: "20px"}}*/}
                     <Divider variant="middle" sx={{ my: '20px' }} />
 
@@ -108,11 +110,14 @@ export default function Home() {
                     <Divider variant="middle" sx={{ my: '20px' }} />
 
                     {/* use custom color ------------------------------------------ */}
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        Use sx expression
+                    </Typography>
                     <Button variant="contained" sx={{ color: 'secondary.light' }}>
-                        secondary.light
+                        light
                     </Button>
                     <Button variant="contained" sx={{ color: 'secondary.dark' }}>
-                        secondary.dark
+                        dark
                     </Button>
 
                     <StyleButton variant="contained">
@@ -122,7 +127,7 @@ export default function Home() {
                     <Divider variant="middle" sx={{ my: '20px' }} />
 
                     {/*  ThemeToggle ------------------------------------------ */}
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    <Typography sx={{ fontSize: 14 }} color="text.main" gutterBottom>
                         Change Theme
                     </Typography>
                     <ToggleButtonGroup
@@ -132,8 +137,14 @@ export default function Home() {
                         <ToggleButton value='light'>
                             light
                         </ToggleButton>
+                        <ToggleButton value='mui'>
+                            mui deafault
+                        </ToggleButton>
                         <ToggleButton value='botanical'>
                             botanical
+                        </ToggleButton>
+                        <ToggleButton value='dark'>
+                            dark
                         </ToggleButton>
                     </ToggleButtonGroup>
                 </Box>

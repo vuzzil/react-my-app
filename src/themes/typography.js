@@ -67,7 +67,7 @@ export default function themeTypography(theme) {
             '& > label': {
                 top: '23px',
                 left: 0,
-                color: theme.grey500,
+                color: theme.colors.grey500,
                 '&[data-shrink="false"]': {
                     top: '5px'
                 }

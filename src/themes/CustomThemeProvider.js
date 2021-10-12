@@ -1,8 +1,10 @@
 import React, { createContext, useState } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
+
 
 //predefined themes
-import light from './light';
+import LightTheme from './LightTheme';
 import botanical from './botanical';
 
 export const CustomThemeContext = createContext({
@@ -12,19 +14,35 @@ export const CustomThemeContext = createContext({
 
 
 
-//default themeNmae = 'light'
-const themes = {
-	light,
-	botanical,
-}
-
-const getTheme = (theme) => {
-	return themes[theme];
-}
-
+//mui default theme 
+const mui = createTheme();
+const dark = createTheme({
+	palette: {
+		mode: 'dark',
+	},
+});
 
 const CustomThemeProvider = props => {
 	const { children } = props;
+
+	const customization = useSelector((state) => state.customization);
+	console.log("customization fontFamily=" + customization.fontFamily);
+
+	//custom themes..............
+	const light = LightTheme(customization);
+	console.log("light theme primary.main color= " + light.palette.primary.main);
+
+	//default themeNmae = 'light'
+	const themes = {
+		light,
+		mui,
+		botanical,
+		dark,
+	}
+
+	const getTheme = (theme) => {
+		return themes[theme];
+	}
 
 	// Get current theme from localStorage
 	let currentTheme = localStorage.getItem('appTheme') ?? 'light';
