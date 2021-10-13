@@ -9,6 +9,7 @@ import { SET_MENU } from 'store/actions';
 
 // project imports
 import Header from './Header';
+import Sidebar from './Sidebar';
 
 const Main = styled('main', {
     shouldForwardProp: (prop) => prop !== 'isDrawerOpened',
@@ -21,15 +22,15 @@ const Main = styled('main', {
     marginRight: '20px',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-
     backgroundColor: theme.palette.background.default,
+    marginLeft: 0,
+
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen
     }),
-    marginLeft: 0,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
+    
+    
     [theme.breakpoints.down('md')]: {
         marginLeft: '20px'
     },
@@ -40,11 +41,11 @@ const Main = styled('main', {
     ...(isDrawerOpened && {
         backgroundColor: theme.palette.background.paper,
         transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen
         }),
         [theme.breakpoints.up('md')]: {
-            marginLeft: (drawerWidth - 20),
+            marginLeft: (drawerWidth ),
             width: `calc(100% - ${drawerWidth}px)`
         },
         [theme.breakpoints.down('md')]: {
@@ -84,15 +85,19 @@ const MainLayout = () => {
 
     React.useEffect(() => {
         dispatch({ type: SET_MENU, opened: !matchDownMd });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [matchDownMd]);
 
-    
+
     return (
         <div sx="{{display: 'flex'}} ">
             <CssBaseline />
             {/* header */}
-
             <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
+
+            {/* drawer */}
+            <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
+
 
             {/* main content  sx={JSON.stringify(classes.content)} */}
             <Main isDrawerOpened={leftDrawerOpened}>

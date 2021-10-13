@@ -22,13 +22,13 @@ const Header = ({ handleLeftDrawerToggle }) => {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ mr: 2 }}
+                        sx={{ mr: 2, ml: '260px' }}
                         onClick={handleLeftDrawerToggle}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        News
+                        APP BAR
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>

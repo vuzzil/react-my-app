@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles';
-import { green, blue } from '@mui/material/colors';
 
 //botanical theme
 const botanical = createTheme({
