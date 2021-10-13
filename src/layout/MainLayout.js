@@ -1,41 +1,65 @@
 import React from 'react';
 
 import { useTheme, styled } from '@mui/material/styles';
-import { useMediaQuery, CssBaseline, AppBar, Typography } from '@mui/material';
+import { useMediaQuery, CssBaseline } from '@mui/material';
 import { drawerWidth } from 'store/constant';
 import { Outlet } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { SET_MENU } from 'store/actions';
 
+// project imports
+import Header from './Header';
 
-const Main = styled('main')(({ theme }) => ({
-    //...theme.typography.mainContent,
+const Main = styled('main', {
+    shouldForwardProp: (prop) => prop !== 'isDrawerOpened',
+})(({ isDrawerOpened, theme }) => ({
     width: '100%',
     minHeight: 'calc(100vh - 88px)',
     flexGrow: 1,
     padding: '20px',
-    marginTop: '88px',
+    marginTop: '5px',
     marginRight: '20px',
-    backgroundColor: theme.palette.background.paper,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
+
+    backgroundColor: theme.palette.background.default,
     transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen
     }),
-    [theme.breakpoints.up('md')]: {
-        marginLeft: drawerWidth ,
-        width: `calc(100% - ${drawerWidth}px)`
-    },
+    marginLeft: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
     [theme.breakpoints.down('md')]: {
-        marginLeft: '20px',
-        width: `calc(100% - ${drawerWidth}px)`,
-        padding: '16px'
+        marginLeft: '20px'
     },
     [theme.breakpoints.down('sm')]: {
-        marginLeft: '10px',
-        width: `calc(100% - ${drawerWidth}px)`,
-        padding: '16px',
-        marginRight: '10px'
+        marginLeft: '10px'
     },
+    //if  DrawerOpened..............................................
+    ...(isDrawerOpened && {
+        backgroundColor: theme.palette.background.paper,
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen
+        }),
+        [theme.breakpoints.up('md')]: {
+            marginLeft: (drawerWidth - 20),
+            width: `calc(100% - ${drawerWidth}px)`
+        },
+        [theme.breakpoints.down('md')]: {
+            marginLeft: '20px',
+            width: `calc(100% - ${drawerWidth}px)`,
+            padding: '16px'
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: '10px',
+            width: `calc(100% - ${drawerWidth}px)`,
+            padding: '16px',
+            marginRight: '10px'
+        },
+    }),
+
 }));
 // ===========================|| MAIN LAYOUT ||=========================== //
 
@@ -49,24 +73,29 @@ const MainLayout = () => {
     // const classes = useStyles(theme);
     // console.info("classes.root=" + JSON.stringify(classes.root));
 
+    // Handle left drawer
+    const leftDrawerOpened = useSelector((state) => state.customization.opened);
+    console.log("MainLayout-->leftDrawerOpened=" + leftDrawerOpened);
+
+    const dispatch = useDispatch();
+    const handleLeftDrawerToggle = () => {
+        dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
+    };
+
+    React.useEffect(() => {
+        dispatch({ type: SET_MENU, opened: !matchDownMd });
+    }, [matchDownMd]);
+
+    
     return (
-        <div sx="{{backgroundColor: 'red',display: 'flex'}} ">test
+        <div sx="{{display: 'flex'}} ">
             <CssBaseline />
             {/* header */}
-            <AppBar
-                enableColorOnDark
-                position="fixed"
-                color="info"
-                elevation={0}
-            >
-                <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-                    APP BAR
-                </Typography>
-            </AppBar>
 
+            <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
 
             {/* main content  sx={JSON.stringify(classes.content)} */}
-            <Main>
+            <Main isDrawerOpened={leftDrawerOpened}>
                 <Outlet />
             </Main>
         </div >

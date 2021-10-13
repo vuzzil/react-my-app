@@ -4,7 +4,7 @@ import { green, blue } from '@mui/material/colors';
 //botanical theme
 const botanical = createTheme({
     palette: {
-        mode: 'dark',
+        //mode: 'dark',
         primary: {
             main: '#6e8c75',
         },
@@ -19,6 +19,10 @@ const botanical = createTheme({
         },
         success: {
             main: '#607485',
+        },
+        background: {
+            paper: '#ced9d9',
+            default:'#f2ffff',
         },
     },
 });
