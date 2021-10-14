@@ -8,7 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
-
+import { Link } from 'react-router-dom';
 
 export default function MenuList() {
     return (
@@ -37,13 +37,18 @@ export default function MenuList() {
             <nav aria-label="secondary mailbox folders">
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary="Trash" />
+                        <ListItemButton component={Link} to="/setting">
+                            <ListItemText primary="Setting" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton component="a" href="#simple-list">
-                            <ListItemText primary="Spam" />
+                        <ListItemButton component={Link} to="page1">
+                            <ListItemText primary="page1" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton component={Link} to="page2">
+                            <ListItemText primary="page2" />
                         </ListItemButton>
                     </ListItem>
                 </List>

@@ -3,7 +3,7 @@ import React from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { Box, Drawer, useMediaQuery, Button } from '@mui/material';
+import { Box, Drawer, useMediaQuery } from '@mui/material';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -11,7 +11,7 @@ import { BrowserView, MobileView } from 'react-device-detect';
 
 // project imports
 import MenuList from './MenuList';
-// import LogoSection from '../LogoSection';
+import LogoSection from './LogoSection';
 // import MenuCard from './MenuCard';
 import { drawerWidth } from 'store/constant';
 
@@ -53,7 +53,7 @@ const DrawerPaper = styled(Drawer)(({ theme }) => ({
 const Sidebar = ({ drawerOpen, drawerToggle }) => {
     const theme = useTheme();
     const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
-    console.info("Sidebar-->matchUpMd=" + matchUpMd);
+    //console.info("Sidebar-->matchUpMd=" + matchUpMd);
 
     const drawer = (
         <>
@@ -64,7 +64,7 @@ const Sidebar = ({ drawerOpen, drawerToggle }) => {
                     marginLeft: 'auto',
                     marginRight: 'auto'
                 }}>
-                    <Button size="small">Logo</Button>
+                    <LogoSection />
                 </div>
             </Box>
             <BrowserView>

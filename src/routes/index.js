@@ -1,11 +1,13 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 
-// project imports
+
 import MainLayout from 'layout/MainLayout';
 // import Loadable from 'ui-component/Loadable';
 
+// project imports.................................
 import Home from 'views/Home';
+import Setting from 'views/Setting';
 import Page1 from 'views/Page1';
 import Page2 from 'views/Page2';
 
@@ -28,8 +30,8 @@ const MainRoutes = {
             element: <Page2 />
         },
         {
-            path: '/utils/util-color',
-            element: <Home />
+            path: '/setting',
+            element: <Setting />
         },
         {
             path: '/utils/util-shadow',

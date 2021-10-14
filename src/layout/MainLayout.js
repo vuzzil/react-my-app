@@ -31,12 +31,6 @@ const Main = styled('main', {
     }),
     
     
-    [theme.breakpoints.down('md')]: {
-        marginLeft: '20px'
-    },
-    [theme.breakpoints.down('sm')]: {
-        marginLeft: '10px'
-    },
     //if  DrawerOpened..............................................
     ...(isDrawerOpened && {
         backgroundColor: theme.palette.background.paper,
