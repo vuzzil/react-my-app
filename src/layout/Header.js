@@ -17,7 +17,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
     return (
         <Box sx={{ flexGrow: 1 }}>
 
-            <AppBar position="static" sx={{ height: '80px' }}>
+            <AppBar position="static" sx={{ height: '65px' }}>
 
                 <Toolbar>
                     <LogoSection />
@@ -31,7 +31,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
                         APP BAR
                     </Typography>
                     <Button color="inherit">Login</Button>

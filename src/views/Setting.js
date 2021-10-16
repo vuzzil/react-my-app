@@ -35,7 +35,7 @@ const StyleButton = styled(Button)(({ theme }) => ({
 
     ].join(','),
     '&:hover': {
-        backgroundColor: '#0069d9',
+        backgroundColor: 'red',
         borderColor: '#0062cc',
         boxShadow: 'none',
     },
@@ -112,21 +112,25 @@ export default function Setting() {
                     <Divider variant="middle" sx={{ my: '20px' }} />
 
                     {/* use custom color ------------------------------------------ */}
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Use sx expression
-                    </Typography>
-                    <Button variant="contained" sx={{ color: 'secondary.light' }}>
-                        light
-                    </Button>
-                    <Button variant="contained" sx={{ color: 'secondary.dark' }}>
-                        dark
-                    </Button>
+                    <Stack direction="row" spacing={2}>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            Use sx expression
+                        </Typography>
+                        <Button variant="contained" sx={{ color: 'secondary.light' }}>
+                            light
+                        </Button>
+                        <Button variant="contained" sx={{ color: 'secondary.dark' }}>
+                            dark
+                        </Button>
 
-                    <StyleButton variant="contained">
-                        StyleButton
-                    </StyleButton>
-
+                        <StyleButton variant="contained">
+                            StyleButton1
+                        </StyleButton>
+                    </Stack>
                     <Divider variant="middle" sx={{ my: '20px' }} />
+                    <StyleButton variant="contained">
+                        StyleButton2
+                    </StyleButton>
 
                     {/*  ThemeToggle ------------------------------------------ */}
                     <Typography sx={{ fontSize: 14 }} color="text.main" gutterBottom>

@@ -15,7 +15,7 @@ const Main = styled('main', {
     shouldForwardProp: (prop) => prop !== 'isDrawerOpened',
 })(({ isDrawerOpened, theme }) => ({
     width: '100%',
-    minHeight: 'calc(100vh - 88px)',
+    minHeight: 'calc(100vh - 70px)',
     flexGrow: 1,
     padding: '20px',
     marginTop: '5px',

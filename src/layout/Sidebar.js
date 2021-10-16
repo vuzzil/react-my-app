@@ -18,7 +18,7 @@ import { drawerWidth } from 'store/constant';
 
 //styled component...............................................
 const Scrollbar = styled(PerfectScrollbar)(({ theme }) => ({
-    height: 'calc(100vh - 88px)',
+    height: 'calc(100vh - 65px)',
     paddingLeft: '16px',
     paddingRight: '16px',
     [theme.breakpoints.down('sm')]: {
@@ -43,7 +43,7 @@ const DrawerPaper = styled(Drawer)(({ theme }) => ({
         color: theme.palette.text.primary,
         borderRight: 'none',
         [theme.breakpoints.up('md')]: {
-            top: '88px'
+            top: '70px'
         }
     },
 }));

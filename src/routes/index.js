@@ -10,6 +10,8 @@ import Home from 'views/Home';
 import Setting from 'views/Setting';
 import Page1 from 'views/Page1';
 import Page2 from 'views/Page2';
+import Page3 from 'views/Page3';
+import Page4 from 'views/Page4';
 
 // ===========================|| MAIN ROUTING ||=========================== //
 
@@ -34,8 +36,12 @@ const MainRoutes = {
             element: <Setting />
         },
         {
-            path: '/utils/util-shadow',
-            element: <Home />
+            path: '/Page3',
+            element: <Page3 />
+        },
+        {
+            path: '/Page4',
+            element: <Page4 />
         },
         {
             path: '/icons/tabler-icons',

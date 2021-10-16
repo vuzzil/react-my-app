@@ -1,69 +1,72 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Box, Grid } from '@mui/material';
+//import Porject......
+import BistroMenuItem from 'views/menus/BistroMenuItem';
 
-
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
-
-const theme = createTheme({
-    components: {
-        MuiCard: {
-            styleOverrides: {
-                root: {
-                    fontSize: '1rem',
-                    background: '#673ab7',
-                },
-            },
-        },
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    fontWeight: 500,
-                    textTransform: 'capitalize',
-                    borderRadius: '4px'
-                }
-            }
-        },
-    },
-});
 
 export default function Page2() {
+
+    const data = [
+        {
+            type: '前', title: '本日沙拉', price: '$ 120',
+            desc: 'This impressive paella is a perfect party dish and',
+            detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
+            imgUrl: '/static/images/cards/entree.salade.basic1.jpg'
+        },
+        {
+            type: '前', title: '牛肉餡餅', price: '$ 60',
+            desc: 'This impressive paella is a perfect party dish ',
+            detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
+            imgUrl: '/static/images/cards/entree.beef.pie.jpg'
+        },
+        {
+            type: '前', title: '牛肉漢堡', price: '$ 90',
+            desc: 'This impressive paella is a perfect party dish ',
+            detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
+            imgUrl: '/static/images/cards/hamburger.basic1.jpg'
+        },
+        {
+            type: '甜', title: '巧克力泡芙', price: '$ 60',
+            desc: 'This impressive paella is a perfect party ',
+            detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
+            imgUrl: '/static/images/cards/dessert.puffs.basic1.jpg'
+        },
+        {
+            type: '甜', title: 'paris brest', price: '$ 80',
+            desc: 'This impressive paella is a perfect party ',
+            detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
+            imgUrl: '/static/images/cards/dessert.paris.brest-0.jpg'
+        },
+        {
+            type: '主', title: '牛肉料理', price: '$ 360',
+            desc: 'This impressive paella is a perfect party ',
+            detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
+            imgUrl: '/static/images/cards/plat.beef.1.jpg'
+        },
+        {
+            type: '主', title: '雞肉料理', price: '$ 280',
+            desc: 'This impressive paella is a perfect party dish',
+            detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
+            imgUrl: '/static/images/cards/plat.checken.1.jpg'
+        },
+        {
+            type: '飲', title: '拿鐵咖啡', price: '$ 75',
+            desc: 'This impressive paella is a perfect party ',
+            detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
+            imgUrl: '/static/images/cards/drink.coffee.latate.jpg'
+        },
+    ];
     return (
-        <ThemeProvider theme={theme}>
-            <Card sx={{ minWidth: 275 }}>
-                <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                       Page2
-                    </Typography>
-                    <Typography variant="h5" component="div">
-                        be{bull}nev{bull}o{bull}lent
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        adjective
-                    </Typography>
-                    <Typography variant="body2">
-                        well meaning and kindly.
-                        <br />
-                        {'"a benevolent smile"'}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button size="small">Learn More</Button>
-                </CardActions>
-            </Card>
-        </ThemeProvider>
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={3}>
+                {
+                    data.map((children) => (
+                        <Grid item >
+                            <BistroMenuItem {...children} />
+                        </Grid>
+
+                    ))}
+            </Grid>
+        </Box>
     );
 }
