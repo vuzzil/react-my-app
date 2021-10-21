@@ -17,7 +17,7 @@ const Main = styled('main', {
     width: '100%',
     minHeight: 'calc(100vh - 70px)',
     flexGrow: 1,
-    padding: '20px',
+    padding: '10px 20px 10px 20px',
     marginTop: '5px',
     marginRight: '20px',
     borderBottomLeftRadius: 0,

@@ -19,6 +19,8 @@ const mui = createTheme();
 const dark = createTheme({
 	palette: {
 		mode: 'dark',
+		// primary: { main: 'rgb(131, 10, 191)' },
+		// background: { paper: '#071d30' },
 	},
 });
 
