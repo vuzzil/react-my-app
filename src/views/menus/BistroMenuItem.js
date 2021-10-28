@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -26,7 +27,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function BistroMenuItem({ id, label, title, price, desc, detail, image: imgURL }) {
+export default function BistroMenuItem({ menuid, label, title, price, desc, detail, image: imgURL, cb }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -49,10 +50,6 @@ export default function BistroMenuItem({ id, label, title, price, desc, detail, 
         setCount(0);
         handleClose();
     };
-    const openImage = (event) => {
-        console.log("openImage.click(" + event.currentTarget + ")");
-        handleClose();
-    }
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -61,7 +58,7 @@ export default function BistroMenuItem({ id, label, title, price, desc, detail, 
     };
 
     return (
-        <Card key={id} sx={{ maxWidth: 220, boxShadow: 4, }}>
+        <Card key={menuid} sx={{ maxWidth: 220, boxShadow: 4, }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: 'success.main', width: 26, height: 26, fontSize: '14px' }} aria-label="menu">
@@ -75,7 +72,7 @@ export default function BistroMenuItem({ id, label, title, price, desc, detail, 
 
                 }
                 title={title}
-                subheader={price}
+                subheader={`$ ${price}`}
             />
             <Menu
                 id="fade-menu"
@@ -91,7 +88,11 @@ export default function BistroMenuItem({ id, label, title, price, desc, detail, 
             >
                 <MenuList>
                     <MenuItem onClick={cancel}>取消</MenuItem>
-                    <MenuItem onClick={openImage}>放大</MenuItem>
+                    <MenuItem onClick={() => {
+                        cb(`${imgURL}`);
+                        handleClose();
+                    }}>放大</MenuItem>
+                    {/* <MenuItem onClick={openImage}>放大</MenuItem> */}
                 </MenuList>
             </Menu>
 
@@ -133,3 +134,14 @@ export default function BistroMenuItem({ id, label, title, price, desc, detail, 
         </Card>
     );
 }
+
+BistroMenuItem.propTypes = {
+    menuid: PropTypes.string,
+    label: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    desc: PropTypes.string,
+    detail: PropTypes.string,
+    image: PropTypes.string,
+    cb: PropTypes.func,
+};

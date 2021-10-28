@@ -12,6 +12,7 @@ import Page1 from 'views/Page1';
 import Page2 from 'views/Page2';
 import Page3 from 'views/Page3';
 import Page4 from 'views/Page4';
+import GetBistroMenu from 'views/GetBistroMenu';
 
 // ===========================|| MAIN ROUTING ||=========================== //
 
@@ -44,8 +45,8 @@ const MainRoutes = {
             element: <Page4 />
         },
         {
-            path: '/icons/tabler-icons',
-            element: <Home />
+            path: '/bistro/getBistroMenu',
+            element: <GetBistroMenu />
         },
         {
             path: '/icons/material-icons',

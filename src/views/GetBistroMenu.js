@@ -5,57 +5,6 @@ import axios from "axios";
 import BistroMenuItem from 'views/menus/BistroMenuItem';
 
 
-// const data = [
-//     {
-//         id: 'entree.001', label: '前', title: '馬鈴薯沙拉', price: '120',
-//         desc: '前菜  蛋黃醬、千島醬、凱撒醬、油醋汁',
-//         detail: '馬鈴薯•紅蘿蔔•洋蔥•小黃瓜 半根•德國煙燻香腸',
-//         image: '/static/images/cards/entree.001.jpg'
-//     },
-//     {
-//         id: 'entree.002', label: '前', title: '牛肉餡餅', price: '60',
-//         desc: 'This impressive paella is a perfect party dish ',
-//         detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
-//         image: '/static/images/cards/entree.002.jpg'
-//     },
-//     {
-//         id: 'plat.f01', label: '主', title: '牛肉漢堡', price: '90',
-//         desc: 'This impressive paella is a perfect party dish ',
-//         detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
-//         image: '/static/images/cards/plat.f01.jpg'
-//     },
-//     {
-//         id: 'dessert.001', label: '甜', title: '巧克力泡芙', price: '60',
-//         desc: 'This impressive paella is a perfect party ',
-//         detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
-//         image: '/static/images/cards/dessert.001.jpg'
-//     },
-//     {
-//         id: 'dessert.002', label: '甜', title: 'paris brest', price: '80',
-//         desc: 'This impressive paella is a perfect party ',
-//         detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
-//         image: '/static/images/cards/dessert.002.jpg'
-//     },
-//     {
-//         id: 'plat.b01', label: '主', title: '牛肉料理', price: '360',
-//         desc: 'This impressive paella is a perfect party ',
-//         detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
-//         image: '/static/images/cards/plat.b01.jpg'
-//     },
-//     {
-//         id: 'plat.c01', label: '主', title: '雞肉料理', price: '280',
-//         desc: 'This impressive paella is a perfect party dish',
-//         detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
-//         image: '/static/images/cards/plat.c01.jpg'
-//     },
-//     {
-//         id: 'drink.c01', label: '飲', title: '拿鐵咖啡', price: '75',
-//         desc: 'This impressive paella is a perfect party ',
-//         detail: 'Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes. ',
-//         image: '/static/images/cards/drink.c01.jpg'
-//     },
-// ];
-
 const style = {
     position: 'absolute',
     top: '50%',
@@ -71,7 +20,7 @@ const style = {
 const API_URL = process.env.REACT_APP_API_ROOT_URL + "/menus/";
 
 //export default function Page2() {
-class Page2 extends React.Component {
+class GetBistroMenu extends React.Component {
 
     constructor(props) {
         super(props);
@@ -233,4 +182,4 @@ class Page2 extends React.Component {
 }
 
 
-export default Page2;
+export default GetBistroMenu;

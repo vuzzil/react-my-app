@@ -45,7 +45,7 @@ const categories = [
         id: '前台',
         children: [
             { id: 'F001', label: '訂位/預約', url: '/#', icon: <PeopleIcon />, active: true, },
-            { id: 'F002', label: '菜單', url: '/#', icon: <DnsRoundedIcon /> },
+            { id: 'F002', label: '菜單', url: '/bistro/getBistroMenu', icon: <DnsRoundedIcon /> },
             { id: 'F003', label: '點菜狀況查詢', url: '/#', icon: <PermMediaOutlinedIcon /> },
             { id: 'F004', label: '顧客滿意度調查', url: '/#', icon: <PublicIcon /> },
 
