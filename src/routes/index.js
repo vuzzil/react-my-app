@@ -3,6 +3,7 @@ import { useRoutes } from 'react-router-dom';
 
 
 import MainLayout from 'layout/MainLayout';
+import MiniLayout from 'layout/MiniLayout';
 // import Loadable from 'ui-component/Loadable';
 
 // project imports.................................
@@ -14,54 +15,71 @@ import Page3 from 'views/Page3';
 import Page4 from 'views/Page4';
 import GetBistroMenu from 'views/GetBistroMenu';
 
+import Login from 'views/authentication/Login';
+import Register from 'views/authentication/Register';
+
 // ===========================|| MAIN ROUTING ||=========================== //
 
-const MainRoutes = {
+const AuthRoute = {
     path: '/',
-    element: <MainLayout />,
+    element: <MiniLayout />,
     children: [
         {
             path: '/',
             element: <Home />
         },
         {
-            path: '/page1',
-            element: <Page1 />
+            path: '/login',
+            element: <Login />
         },
         {
-            path: '/page2',
-            element: <Page2 />
+            path: '/signup',
+            element: <Register />
         },
-        {
-            path: '/setting',
-            element: <Setting />
-        },
-        {
-            path: '/Page3',
-            element: <Page3 />
-        },
-        {
-            path: '/Page4',
-            element: <Page4 />
-        },
-        {
-            path: '/bistro/getBistroMenu',
-            element: <GetBistroMenu />
-        },
-        {
-            path: '/icons/material-icons',
-            element: <Home />
-        },
-
-        {
-            path: '/sample-page',
-            element: <Home />
-        }
     ]
 };
 
+const MainRoutes = (isLoggedIn) => {
+    return {
+        path: '/bistro',
+        element: (isLoggedIn) ? <MainLayout /> : <Login />,
+        children: [
+
+            {
+                path: '/bistro',
+                element: <Home />
+            },
+            {
+                path: '/bistro/page1',
+                element: <Page1 />
+            },
+            {
+                path: '/bistro/page2',
+                element: <Page2 />
+            },
+            {
+                path: '/bistro/setting',
+                element: <Setting />
+            },
+            {
+                path: '/bistro/Page3',
+                element: <Page3 />
+            },
+            {
+                path: '/bistro/Page4',
+                element: <Page4 />
+            },
+            {
+                path: '/bistro/getBistroMenu',
+                element: <GetBistroMenu />
+            },
+
+        ]
+    };
+}
+
 // ===========================|| ROUTING RENDER ||=========================== //
 
-export default function ThemeRoutes() {
-    return useRoutes([MainRoutes]);
+export default function ThemeRoutes({ isLoggedIn }) {
+    return useRoutes([AuthRoute, MainRoutes(isLoggedIn),]);
 }

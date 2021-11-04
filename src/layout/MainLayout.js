@@ -10,6 +10,8 @@ import { SET_MENU } from 'store/actions';
 // project imports
 import Header from './Header';
 import Sidebar from './Sidebar';
+import ErrorNotification from './ErrorNotification';
+import { getLoginUser } from 'services/auth.service'
 
 const Main = styled('main', {
     shouldForwardProp: (prop) => prop !== 'isDrawerOpened',
@@ -29,8 +31,8 @@ const Main = styled('main', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen
     }),
-    
-    
+
+
     //if  DrawerOpened..............................................
     ...(isDrawerOpened && {
         backgroundColor: theme.palette.background.paper,
@@ -39,7 +41,7 @@ const Main = styled('main', {
             duration: theme.transitions.duration.enteringScreen
         }),
         [theme.breakpoints.up('md')]: {
-            marginLeft: (drawerWidth ),
+            marginLeft: (drawerWidth),
             width: `calc(100% - ${drawerWidth}px)`
         },
         [theme.breakpoints.down('md')]: {
@@ -63,14 +65,10 @@ const MainLayout = () => {
 
     const theme = useTheme();
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
-    console.info("MainLayout-->matchDownMd=" + matchDownMd);
-
-    // const classes = useStyles(theme);
-    // console.info("classes.root=" + JSON.stringify(classes.root));
-
+    
     // Handle left drawer
     const leftDrawerOpened = useSelector((state) => state.customization.opened);
-    console.log("MainLayout-->leftDrawerOpened=" + leftDrawerOpened);
+    //console.log("MainLayout-->leftDrawerOpened=" + leftDrawerOpened);
 
     const dispatch = useDispatch();
     const handleLeftDrawerToggle = () => {
@@ -81,6 +79,19 @@ const MainLayout = () => {
         dispatch({ type: SET_MENU, opened: !matchDownMd });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [matchDownMd]);
+
+    //check login user..............................................................
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    const user = useSelector((state) => state.auth.user);
+    if (isLoggedIn) {
+        if (user && user.username) {
+            //console.log("MainLayout->isLoggedIn=" + isLoggedIn + ",user=" + user.username);
+        } else {
+            //console.log("MainLayout->isLoggedIn=true BUT has no user,start reflesh user...");
+            dispatch(getLoginUser());
+            console.log("MainLayout->reflesh user 完成!");
+        }
+    }
 
 
     return (
@@ -96,6 +107,7 @@ const MainLayout = () => {
             {/* main content  sx={JSON.stringify(classes.content)} */}
             <Main isDrawerOpened={leftDrawerOpened}>
                 <Outlet />
+                <ErrorNotification />
             </Main>
         </div >
     );

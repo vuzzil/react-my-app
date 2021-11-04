@@ -1,9 +1,10 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Grid, FormControl, InputLabel, Select, MenuItem, Typography, Stack, Modal } from '@mui/material';
-import axios from "axios";
+import { useDispatch } from 'react-redux';
+
 //import Porject......
 import BistroMenuItem from 'views/menus/BistroMenuItem';
-
+import { getBistroMenus } from 'services/bistro.service'
 
 const style = {
     position: 'absolute',
@@ -17,168 +18,153 @@ const style = {
     p: 3,
 };
 
-const API_URL = process.env.REACT_APP_API_ROOT_URL + "/menus/";
 
-//export default function Page2() {
-class GetBistroMenu extends React.Component {
+const GetBistroMenu = () => {
+    const dispatch = useDispatch();
+    const [state, setState] = useState({
+        mount: false,
+        type: 'all',
+        sortprice: 1,       //price from low to high...
+        data: [],
+        isShowImg: false,
+        imgURL: '',
+    });
 
-    constructor(props) {
-        super(props);
-        this.handleTypeChange = this.handleTypeChange.bind(this);
-        this.handlePriceChange = this.handlePriceChange.bind(this);
-        this.openDetail = this.openDetail.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.resetMenudata = this.resetMenudata.bind(this);
-        this.getBistroMenus = this.getBistroMenus.bind(this);
+    useEffect(() => {
+        function getMenudata() {
+            let params = (state.type === 'all') ?
+                { sortprice: state.sortprice } : { type: state.type, sortprice: state.sortprice };
 
-
-        this.state = {
-            sortType: 'all',
-            sortPrice: 1,       //price from low to high...
-            menuData: [],       //data.sort(function (a, b) { return Number(a.price) - Number(b.price) }),
-            isShowImg: false,
-            imgURL: '',
+            dispatch(getBistroMenus(params))
+                .then(res => {
+                    if (res.data) {
+                        setState(prev => ({ ...prev, data: res.data }));
+                    }
+                });
         };
-    };
 
-    componentDidMount() {
-        this.resetMenudata();
-    }
-
-
-    getBistroMenus = (type) => {
-        try {
-            let url = API_URL + "?sortprice=" + this.state.sortPrice;
-            //console.log("getBistroMenus->type=" + type);
-            if (type && type !== 'all') url = url + "&type=" + type;
-            console.log("url=" + url);
-            axios.get(url).then(res => this.setState({ menuData: res.data }));
+        if (!state.mount) {
+            setState(prev => ({ ...prev, mount: true }));
+            getMenudata();
+            //console.log("mount=" + state.mount + ",sortmethod=" + state.sortprice);
         }
-        catch (e) {
-            console.log(e);
-        }
+
+    }, [state.mount, state.sortprice, state.type, dispatch]);
+
+    const handleTypeChange = (event) => {
+        let value = event.target.value;
+
+        setState(prev => ({
+            ...prev,
+            type: value,
+            mount: false,
+        }));
+
     };
 
-    resetMenudata = (type) => {
-        this.getBistroMenus(type);
-    };
 
+    const handlePriceChange = (event) => {
+        let value = event.target.value;
+        //console.log("value=" + value + ",mount=" + state.mount + ",sortmethod=" + state.sortprice);
+        let newData = (value === 1) ? state.data.sort(function (a, b) { return Number(a.price) - Number(b.price) }) :
+            state.data.sort(function (a, b) { return Number(b.price) - Number(a.price) });
 
-    handleTypeChange = (event) => {
-        let type = event.target.value;
-        //console.log("type=" + type + ",sort price=" + this.state.sortPrice);
-        this.resetMenudata(type);
-        this.setState(prevState => ({
-            ...prevState,
-            sortType: type,
+        setState(prev => ({
+            ...prev,
+            sortprice: value,
+            data: newData
         }));
     };
 
-
-    handlePriceChange = (event) => {
-        let method = event.target.value;
-        //console.log("method=" + method + "," + (method === 1));
-        let newData = (method === 1) ? this.state.menuData.sort(function (a, b) { return Number(a.price) - Number(b.price) }) :
-            this.state.menuData.sort(function (a, b) { return Number(b.price) - Number(a.price) });
-
-        this.setState(prevState => ({
-            ...prevState,
-            sortPrice: method,
-            menuData: newData
-        }));
-    };
-
-    openDetail = (url) => {
-        this.setState({
+    const openDetail = (url) => {
+        setState(prev => ({
+            ...prev,
             isShowImg: true,
             imgURL: url,
-        });
-    }
-
-
-
-    handleClose = () => {
-        this.setState(prevState => ({
-            ...prevState,
-            isShowImg: false,
-            imgURL: '',
         }));
     }
 
 
 
-
-    render() {
-        return (
-            <>
-                <Box component="div" sx={{ display: 'inline', width: '100%', bgcolor: 'info.light', mt: 0 }}>
-                    <Stack direction="row" spacing={2}>
-                        <Typography component="div" variant="h5" color="text.secondary" sx={{ width: '10%' }}>菜單</Typography>
-
-
-                        <FormControl sx={{ width: '150px' }}>
-                            <InputLabel id="sorting-type">篩選</InputLabel>
-                            <Select
-                                labelId="sorting-type"
-                                id="select-type"
-                                value={this.state.sortType}
-                                label="種類"
-                                onChange={this.handleTypeChange}
-                                sx={{ height: 24, fontSize: '12px', }}
-                            >
-                                <MenuItem key="all" value="all" sx={{ fontSize: 'inherit', }}>全部</MenuItem>
-                                <MenuItem key="entree" value="entree" sx={{ fontSize: 'inherit', }}>前菜</MenuItem>
-                                <MenuItem key="plat" value="plat" sx={{ fontSize: 'inherit', }}>主餐</MenuItem>
-                                <MenuItem key="dessert" value="dessert" sx={{ fontSize: 'inherit', }}>甜點</MenuItem>
-                                <MenuItem key="drink" value="drink" sx={{ fontSize: 'inherit', }}>飲料</MenuItem>
-                            </Select>
-                        </FormControl>
-
-                        <FormControl sx={{ width: '150px' }}>
-                            <InputLabel id="sorting-price">排序</InputLabel>
-                            <Select
-                                labelId="sorting-price"
-                                id="select-price"
-                                value={this.state.sortPrice}
-                                label="價格"
-                                onChange={this.handlePriceChange}
-                                sx={{ height: 24, fontSize: '12px', }}
-                            >
-                                <MenuItem key="method1" value={1} sx={{ fontSize: 'inherit', }}>價格由低到高</MenuItem>
-                                <MenuItem key="method2" value={2} sx={{ fontSize: 'inherit', }}>價格由高到低</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Stack>
-                </Box>
-
-                <Box sx={{ flexGrow: 1, mt: '5px' }}>
-
-                    <Grid container spacing={2} >
-                        {
-                            this.state.menuData.map((children) => (
-                                <Grid item key={children.menuid}>
-                                    <BistroMenuItem cb={this.openDetail} {...children} />
-                                </Grid>
-
-                            ))}
-                    </Grid>
-                </Box >
-
-                <Modal
-                    open={this.state.isShowImg}
-                    onClose={this.handleClose}
-                >
-                    <Box sx={style}>
-                        <img height="550" width="100%"
-                            src={this.state.imgURL}
-                            loading="lazy"
-                            alt='Detail Img'
-                        />
-                    </Box>
-                </Modal>
-            </>
-        );
+    const handleClose = () => {
+        setState(prev => ({
+            ...prev,
+            isShowImg: false,
+            imgURL: '',
+        }));
     }
+
+    return (
+        <>
+            <Box component="div" sx={{ display: 'inline', width: '100%', bgcolor: 'info.light', mt: 0 }}>
+                <Stack direction="row" spacing={2}>
+                    <Typography component="div" variant="h5" color="text.secondary" sx={{ width: '10%' }}>菜單</Typography>
+                    {/* <Button onClick={resetMenudata} variant="contained">test</Button> */}
+
+                    <FormControl sx={{ width: '150px' }}>
+                        <InputLabel id="sorting-type">篩選</InputLabel>
+                        <Select
+                            labelId="sorting-type"
+                            id="select-type"
+                            value={state.type}
+                            label="種類"
+                            onChange={handleTypeChange}
+                            sx={{ height: 24, fontSize: '12px', }}
+                        >
+                            <MenuItem key="all" value="all" sx={{ fontSize: 'inherit', }}>全部</MenuItem>
+                            <MenuItem key="entree" value="entree" sx={{ fontSize: 'inherit', }}>前菜</MenuItem>
+                            <MenuItem key="plat" value="plat" sx={{ fontSize: 'inherit', }}>主餐</MenuItem>
+                            <MenuItem key="dessert" value="dessert" sx={{ fontSize: 'inherit', }}>甜點</MenuItem>
+                            <MenuItem key="drink" value="drink" sx={{ fontSize: 'inherit', }}>飲料</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl sx={{ width: '150px' }}>
+                        <InputLabel id="sorting-price">排序</InputLabel>
+                        <Select
+                            labelId="sorting-price"
+                            id="select-price"
+                            value={state.sortprice}
+                            label="價格"
+                            onChange={handlePriceChange}
+                            sx={{ height: 24, fontSize: '12px', }}
+                        >
+                            <MenuItem key="method1" value={1} sx={{ fontSize: 'inherit', }}>價格由低到高</MenuItem>
+                            <MenuItem key="method2" value={2} sx={{ fontSize: 'inherit', }}>價格由高到低</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Stack>
+            </Box>
+
+            <Box sx={{ flexGrow: 1, mt: '5px' }}>
+
+                <Grid container spacing={2} >
+                    {state.data && state.data.map((children) => (
+                        <Grid item key={children.menuid}>
+                            <BistroMenuItem cb={openDetail} {...children} />
+                        </Grid>
+
+                    ))}
+                </Grid>
+            </Box >
+
+            <Modal
+                open={state.isShowImg}
+                onClose={handleClose}
+            >
+                <Box sx={style}>
+                    <img height="550" width="100%"
+                        src={state.imgURL}
+                        loading="lazy"
+                        alt='Detail Img'
+                    />
+                </Box>
+            </Modal>
+
+
+        </>
+    );
+
 }
 
 

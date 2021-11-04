@@ -5,14 +5,16 @@ import CustomThemeProvider from 'themes/CustomThemeProvider';
 
 // routing
 import Routes from './routes';
-
+import { useSelector } from 'react-redux';
 
 function App() {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  
   return (
     <StyledEngineProvider injectFirst>
       <CustomThemeProvider>
         <CssBaseline />
-        <Routes />
+        <Routes isLoggedIn={isLoggedIn} />
       </CustomThemeProvider>
     </StyledEngineProvider>
   );

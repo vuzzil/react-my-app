@@ -33,11 +33,11 @@ const categories = [
     {
         id: 'Pages',
         children: [
-            { id: 'Page1', label: '測試頁面1', url: '/Page1', icon: <BallotIcon /> },
-            { id: 'Page2', label: '測試頁面2', url: '/Page2', icon: <BallotIcon /> },
-            { id: 'Page3', label: '測試頁面3', url: '/Page3', icon: <BallotIcon /> },
-            { id: 'Page4', label: '測試頁面4', url: '/Page4', icon: <BallotIcon /> },
-            { id: 'Setting', label: 'Setting', url: '/Setting', icon: <MiscellaneousServicesIcon /> },
+            { id: 'Page1', label: '測試頁面1', url: '/bistro/Page1', icon: <BallotIcon /> },
+            { id: 'Page2', label: '測試頁面2', url: '/bistro/Page2', icon: <BallotIcon /> },
+            { id: 'Page3', label: '測試頁面3', url: '/bistro/Page3', icon: <BallotIcon /> },
+            { id: 'Page4', label: '測試頁面4', url: '/bistro/Page4', icon: <BallotIcon /> },
+            { id: 'Setting', label: 'Setting', url: '/bistro/Setting', icon: <MiscellaneousServicesIcon /> },
 
         ],
     },
@@ -78,9 +78,9 @@ export default function MenuList() {
         <Box>
 
             {categories.map(({ id, children }) => (
-                <nav aria-label="主選單">
+                <nav aria-label="主選單" key={id}>
                     <List>
-                        <ListItem disablePadding>
+                        <ListItem disablePadding key={id}>
                             <ListItemText
                                 primaryTypographyProps={{
                                     variant: 'subtitle1',
@@ -90,13 +90,14 @@ export default function MenuList() {
                                 }}
                             >{id}</ListItemText>
                         </ListItem>
-                        {children.map(({ id: childId, label, url, icon, active }) => (
+                        {children && children.map(({ id: childId, label, url, icon, active }) => (
                             <ListItem disablePadding key={childId}>
                                 <ListItemButton
                                     component={Link}
                                     to={url}
                                     onClick={() => itemHandler({ childId })}
                                     sx={{ py: 0, minHeight: 32 }}
+                                    key={`link_${childId}`}
                                 >
                                     <ListItemIcon>{icon}</ListItemIcon>
                                     <ListItemText> {label}</ListItemText>
