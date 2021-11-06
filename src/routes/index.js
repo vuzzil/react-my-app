@@ -62,11 +62,11 @@ const MainRoutes = (isLoggedIn) => {
                 element: <Setting />
             },
             {
-                path: '/bistro/Page3',
+                path: '/bistro/page3',
                 element: <Page3 />
             },
             {
-                path: '/bistro/Page4',
+                path: '/bistro/page4',
                 element: <Page4 />
             },
             {

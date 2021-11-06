@@ -6,7 +6,8 @@ const botanical = createTheme({
         //mode: 'dark',
         primary: {
             main: '#6e8c75',
-            dark: '#415245',
+            light:'#ebfff6',
+            dark: '#415245',            
         },
         secondary: {
             main: '#787d7a',

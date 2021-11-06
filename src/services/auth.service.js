@@ -36,7 +36,7 @@ export const register = (username, email, password) => (dispatch) => {
                 error: message,
             });
 
-            return Promise.reject();
+            return Promise.reject(message);
         }
     );
 };
@@ -64,7 +64,7 @@ export const login = (username, password) => (dispatch) => {
                 error: message,
             });
 
-            return Promise.reject();
+            return Promise.reject(message);
         }
     );
 };
