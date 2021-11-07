@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
 // project imports
-import { store } from './store';
+import store from './store';
 
 // style + assets
 import './assets/scss/style.scss';

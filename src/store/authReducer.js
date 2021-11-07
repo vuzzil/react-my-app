@@ -9,11 +9,11 @@ import {
 const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = user
-    ? { isLoggedIn: true, user }
-    : { isLoggedIn: false, user: null };
+    ? { isLoggedIn: true, user: { username: user.username, email: user.email, theme: user.theme } }
+    : { isLoggedIn: false, user: {} };
 
 const authReducer = (state = initialState, action) => {
-    const { type, payload } = action;
+    const { type, user } = action;
 
     switch (type) {
         case REGISTER_SUCCESS:
@@ -30,7 +30,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: true,
-                user: payload.user,
+                user: { username: user.username, email: user.email, theme: user.theme },
             };
         case LOGIN_FAIL:
             return {

@@ -6,14 +6,14 @@ import {
     LOGOUT,
     SET_ERROR,
 } from "../store/actions";
-
+import store from 'store';
 import AuthApi from "./AuthApi";
 import request from "./request";
 
-export const register = (username, email, password) => (dispatch) => {
+export const register = (username, email, password) => {
     return AuthApi.register(username, email, password).then(
         () => {
-            dispatch({
+            store.dispatch({
                 type: REGISTER_SUCCESS,
             });
 
@@ -27,11 +27,11 @@ export const register = (username, email, password) => (dispatch) => {
                 error.message ||
                 error.toString();
 
-            dispatch({
+            store.dispatch({
                 type: REGISTER_FAIL,
             });
 
-            dispatch({
+            store.dispatch({
                 type: SET_ERROR,
                 error: message,
             });
@@ -41,10 +41,10 @@ export const register = (username, email, password) => (dispatch) => {
     );
 };
 
-export const login = (username, password) => (dispatch) => {
+export const login = (username, password) => {
     return AuthApi.login(username, password).then(
         () => {
-            dispatch(getLoginUser());
+            getLoginUser();
             return Promise.resolve();
         },
         (error) => {
@@ -55,11 +55,11 @@ export const login = (username, password) => (dispatch) => {
                 error.message ||
                 error.toString();
 
-            dispatch({
+            store.dispatch({
                 type: LOGIN_FAIL,
             });
 
-            dispatch({
+            store.dispatch({
                 type: SET_ERROR,
                 error: message,
             });
@@ -69,10 +69,10 @@ export const login = (username, password) => (dispatch) => {
     );
 };
 
-export const logout = () => (dispatch) => {
+export const logout = () => {
     AuthApi.logout();
 
-    dispatch({
+    store.dispatch({
         type: LOGOUT,
     });
     return Promise.resolve();
@@ -80,15 +80,15 @@ export const logout = () => (dispatch) => {
 };
 
 
-export const getLoginUser = () => (dispatch) => {
+export const getLoginUser = () => {
     request("get", "/bistro/user/").then((res) => {
 
         if (res.data) {
             let user = res.data;
             //console.log("getLoginUser-> user=" + user.username);
-            dispatch({
+            store.dispatch({
                 type: LOGIN_SUCCESS,
-                payload: { user: user },
+                user: user,
             });
             return Promise.resolve();
         }
@@ -100,10 +100,10 @@ export const getLoginUser = () => (dispatch) => {
                 error.response.data.message) ||
             error.message ||
             error.toString();
-        dispatch({
+        store.dispatch({
             type: LOGIN_FAIL,
         });
-        dispatch({
+        store.dispatch({
             type: SET_ERROR,
             error: message,
         });

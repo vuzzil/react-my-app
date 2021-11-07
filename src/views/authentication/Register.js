@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-//import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, Card, useMediaQuery, Box, Button } from '@mui/material';
@@ -39,8 +38,7 @@ const Register = () => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
     const [isSuccess, setSuccess] = useState(false);
 
-    //const navigate = useNavigate();
-    const dispatch = useDispatch();
+
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -72,7 +70,7 @@ const Register = () => {
             return errors;
         },
         onSubmit: ({ username, email, password }, { resetForm, setSubmitting }) => {
-            dispatch(register(username, email, password))
+            register(username, email, password)
                 .then(() => {
                     resetForm({});
                     setSuccess(true);

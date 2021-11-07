@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Grid, FormControl, InputLabel, Select, MenuItem, Typography, Stack, Modal } from '@mui/material';
-import { useDispatch } from 'react-redux';
 
 //import Porject......
 import BistroMenuItem from 'views/menus/BistroMenuItem';
@@ -20,7 +19,7 @@ const style = {
 
 
 const GetBistroMenu = () => {
-    const dispatch = useDispatch();
+
     const [state, setState] = useState({
         mount: false,
         type: 'all',
@@ -35,7 +34,7 @@ const GetBistroMenu = () => {
             let params = (state.type === 'all') ?
                 { sortprice: state.sortprice } : { type: state.type, sortprice: state.sortprice };
 
-            dispatch(getBistroMenus(params))
+            getBistroMenus(params)
                 .then(res => {
                     if (res.data) {
                         setState(prev => ({ ...prev, data: res.data }));
@@ -46,10 +45,9 @@ const GetBistroMenu = () => {
         if (!state.mount) {
             setState(prev => ({ ...prev, mount: true }));
             getMenudata();
-            //console.log("mount=" + state.mount + ",sortmethod=" + state.sortprice);
         }
 
-    }, [state.mount, state.sortprice, state.type, dispatch]);
+    }, [state.mount, state.sortprice, state.type]);
 
     const handleTypeChange = (event) => {
         let value = event.target.value;
@@ -65,7 +63,6 @@ const GetBistroMenu = () => {
 
     const handlePriceChange = (event) => {
         let value = event.target.value;
-        //console.log("value=" + value + ",mount=" + state.mount + ",sortmethod=" + state.sortprice);
         let newData = (value === 1) ? state.data.sort(function (a, b) { return Number(a.price) - Number(b.price) }) :
             state.data.sort(function (a, b) { return Number(b.price) - Number(a.price) });
 
@@ -99,7 +96,6 @@ const GetBistroMenu = () => {
             <Box component="div" sx={{ display: 'inline', width: '100%', bgcolor: 'info.light', mt: 0 }}>
                 <Stack direction="row" spacing={2}>
                     <Typography component="div" variant="h5" color="text.secondary" sx={{ width: '10%' }}>菜單</Typography>
-                    {/* <Button onClick={resetMenudata} variant="contained">test</Button> */}
 
                     <FormControl sx={{ width: '150px' }}>
                         <InputLabel id="sorting-type">篩選</InputLabel>
@@ -166,6 +162,7 @@ const GetBistroMenu = () => {
     );
 
 }
+
 
 
 export default GetBistroMenu;

@@ -9,9 +9,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Alert, AlertTitle } from '@mui/material';
+//import { Alert, AlertTitle } from '@mui/material';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 // project imports
@@ -19,27 +19,25 @@ import LogoSection from './LogoSection';
 import { logout } from 'services/auth.service'
 
 const Header = ({ handleLeftDrawerToggle }) => {
-    const [err, setErr] = React.useState(false);
-    const [errMessage, setErrMessage] = React.useState('');
+    //const [err, setErr] = React.useState(false);
+    //const [errMessage, setErrMessage] = React.useState('');
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    //const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const user = useSelector((state) => state.auth.user);
     let userinfo = (user && user.username) ? "使用者=" + user.username : "";
     //console.log("isLoggedIn=" + isLoggedIn + "," + userinfo);
 
 
     const handleClick = () => {
-        dispatch(logout())
+        logout()
             .then(() => {
                 navigate("/login");
-            })
-            .catch(error => {
-                console.log(error);
-                setErr(true);
-                setErrMessage(error.message);
             });
+            // .catch(error => {
+            //     console.log(error);
+            //     setErr(true);
+            //     setErrMessage(error.message);
+            // });
     }
 
     return (
@@ -66,12 +64,12 @@ const Header = ({ handleLeftDrawerToggle }) => {
                 </Toolbar>
             </AppBar>
 
-            {err &&
+            {/* {err &&
                 <Alert severity="error">
                     <AlertTitle>Error</AlertTitle>
                     {errMessage}
                 </Alert>
-            }
+            } */}
         </Box>
     );
 }

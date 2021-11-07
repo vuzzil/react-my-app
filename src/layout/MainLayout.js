@@ -4,6 +4,7 @@ import { useTheme, styled } from '@mui/material/styles';
 import { useMediaQuery, CssBaseline } from '@mui/material';
 import { drawerWidth } from 'store/constant';
 import { Outlet } from 'react-router-dom';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_MENU } from 'store/actions';
 
@@ -88,7 +89,7 @@ const MainLayout = () => {
             //console.log("MainLayout->isLoggedIn=" + isLoggedIn + ",user=" + user.username);
         } else {
             //console.log("MainLayout->isLoggedIn=true BUT has no user,start reflesh user...");
-            dispatch(getLoginUser());
+            getLoginUser();
             console.log("MainLayout->reflesh user 完成!");
         }
     }

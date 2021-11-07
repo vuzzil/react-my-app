@@ -63,7 +63,7 @@ const Login = () => {
             return errors;
         },
         onSubmit: (values, { setFieldError, setSubmitting }) => {
-            dispatch(login(values.email, values.password))
+            login(values.email, values.password)
                 .then(() => {
                     navigate("/bistro");
                 }).catch(
@@ -72,9 +72,10 @@ const Login = () => {
                             dispatch({ type: HIDE_ERROR });
                             setFieldError("password", "登入失敗!請檢查是否輸入正確密碼");
                         }
-                        setSubmitting(false);
+
                     }
                 );
+            setSubmitting(false);
         },
     });
 
