@@ -44,22 +44,22 @@ const categories = [
     {
         id: '前台',
         children: [
-            { id: 'F001', label: '訂位/預約', url: '/#', icon: <PeopleIcon />, active: true, },
+            { id: 'F001', label: '訂位/預約', url: '/bistro#', icon: <PeopleIcon />, active: true, },
             { id: 'F002', label: '菜單', url: '/bistro/getBistroMenu', icon: <DnsRoundedIcon /> },
-            { id: 'F003', label: '點菜狀況查詢', url: '/#', icon: <PermMediaOutlinedIcon /> },
-            { id: 'F004', label: '顧客滿意度調查', url: '/#', icon: <PublicIcon /> },
+            { id: 'F003', label: '點菜狀況查詢', url: '/bistro#', icon: <PermMediaOutlinedIcon /> },
+            { id: 'F004', label: '顧客滿意度調查', url: '/bistro#', icon: <PublicIcon /> },
 
         ],
     },
     {
         id: '後台',
         children: [
-            { id: 'B001', label: '出餐狀況查詢', url: '/#', icon: <SettingsIcon /> },
-            { id: 'B002', label: '營運統計', url: '/#', icon: <PhonelinkSetupIcon /> },
-            { id: 'B003', label: '菜單維護', url: '/#', icon: <TimerIcon /> },
-            { id: 'B004', label: '顧客資料維護', url: '/#', icon: <SettingsInputComponentIcon /> },
-            { id: 'B005', label: '食材資料維護', url: '/#', icon: <SettingsEthernetIcon /> },
-            { id: 'B006', label: '供應商資料維護', url: '/#', icon: <SettingsInputComponentIcon /> },
+            { id: 'B001', label: '出餐狀況查詢', url: '/bistro#', icon: <SettingsIcon /> },
+            { id: 'B002', label: '營運統計', url: '/bistro#', icon: <PhonelinkSetupIcon /> },
+            { id: 'B003', label: '菜單維護', url: '/bistro#', icon: <TimerIcon /> },
+            { id: 'B004', label: '顧客資料維護', url: '/bistro#', icon: <SettingsInputComponentIcon /> },
+            { id: 'B005', label: '食材資料維護', url: '/bistro#', icon: <SettingsEthernetIcon /> },
+            { id: 'B006', label: '供應商資料維護', url: '/bistro#', icon: <SettingsInputComponentIcon /> },
         ],
     },
 ];
