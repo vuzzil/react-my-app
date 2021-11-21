@@ -26,7 +26,7 @@ const AuthRoute = {
     children: [
         {
             path: '/',
-            element: <Home />
+            element: <Login />
         },
         {
             path: '/login',

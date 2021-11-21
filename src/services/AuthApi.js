@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import request from "./request";
 
 class AuthApi {
   constructor() {
@@ -16,9 +16,8 @@ class AuthApi {
 
 
   login(email, password) {
-    let username = email;    //Server side: use fieldname = username
     return this.axioInstance.post("/token/obtain/", {
-      username,
+      email,
       password
     })
       .then(response => {
@@ -31,7 +30,12 @@ class AuthApi {
   }
 
   logout() {
-    localStorage.removeItem("user");
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      let refresh_token = user.refresh;
+      //logout need authentication ,so must use request to do this .....
+      return request("post", "/logout/", { refresh_token: refresh_token })
+    }
   }
 
   register(username, email, password) {

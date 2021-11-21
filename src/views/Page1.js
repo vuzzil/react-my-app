@@ -24,10 +24,11 @@ export default function Page1() {
     const handleClick = () => {
 
         request("get", "/bistro/user/").then((res) => {
-            console.log("Page1-get user=" + res);
             if (res.data) {
+                console.log("Page1-get user=" + JSON.stringify(res.data));
                 let user = res.data;
-                setMessage("使用者=" + user.username + ",email=" + user.email + ",theme=" + user.theme);
+                setMessage("使用者=" + user.username + ",email=" + user.email + ",theme=" + user.theme +
+                    ",is staff=" + user.staff + ",is admin=" + user.admin + ",last_login=" + user.last_login);
             }
         }).catch((error) => {
             setMessage(error.message);

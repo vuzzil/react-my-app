@@ -26,26 +26,35 @@ instance.interceptors.response.use(
         }
 
         if (error.response && error.response.status === 401 && error.response.statusText === "Unauthorized") {
-            //Check whether refresh_token is expired
-            //Not yet.....
             let user = JSON.parse(localStorage.getItem('user'));
             let refresh_token = (user && user.refresh) ? user.refresh : '';
 
-            return instance
-                .post('/token/refresh/', { refresh: refresh_token })
-                .then((response) => {
-                    localStorage.setItem("user", JSON.stringify(response.data));
 
-                    instance.defaults.headers['Authorization'] = "JWT " + response.data.access;
-                    originalRequest.headers['Authorization'] = "JWT " + response.data.access;
+            //Check whether refresh_token is expired
+            const tokenParts = JSON.parse(atob(refresh_token.split('.')[1]));
+            // exp date in token is expressed in seconds, while now() returns milliseconds:
+            const now = Math.ceil(Date.now() / 1000);
 
-                    return instance(originalRequest);
-                })
-                .catch(err => {
-                    console.log("refreshtoken時發生錯誤:");
-                    console.log(err)
-                    return Promise.reject(new ApiError("refreshtoken 失敗!"));
-                });
+            if (tokenParts.exp > now) {
+                return instance
+                    .post('/token/refresh/', { refresh: refresh_token })
+                    .then((response) => {
+                        localStorage.setItem("user", JSON.stringify(response.data));
+
+                        instance.defaults.headers['Authorization'] = "JWT " + response.data.access;
+                        originalRequest.headers['Authorization'] = "JWT " + response.data.access;
+
+                        return instance(originalRequest);
+                    })
+                    .catch(err => {
+                        console.log("refreshtoken時發生錯誤:");
+                        console.log(err)
+                        return Promise.reject(new ApiError("refreshtoken 失敗!"));
+                    });
+            } else {
+                console.log("Refresh token is expired", tokenParts.exp, now);
+                return Promise.reject(new ApiError("refreshtoken 失敗!,token已逾剘"));
+            }
         }
         return Promise.reject(new ApiError(error));
     }

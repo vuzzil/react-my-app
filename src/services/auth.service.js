@@ -41,11 +41,10 @@ export const register = (username, email, password) => {
     );
 };
 
-export const login = (username, password) => {
-    return AuthApi.login(username, password).then(
+export const login = (email, password) => {
+    return AuthApi.login(email, password).then(
         () => {
-            getLoginUser();
-            return Promise.resolve();
+            return getLoginUser();
         },
         (error) => {
             const message =
@@ -69,15 +68,21 @@ export const login = (username, password) => {
     );
 };
 
-export const logout = () => {
-    AuthApi.logout();
-
-    store.dispatch({
-        type: LOGOUT,
-    });
-    return Promise.resolve();
-
-};
+export async function logout() {
+    try {
+        let res = await AuthApi.logout();
+        if (res.data) console.log(res.data);
+        
+        localStorage.removeItem("user");
+        store.dispatch({
+            type: LOGOUT,
+        });
+        return Promise.resolve();
+    } catch (e) {
+        console.log(e);
+        return Promise.reject(e);
+    }
+}
 
 
 export const getLoginUser = () => {
@@ -94,6 +99,7 @@ export const getLoginUser = () => {
         }
 
     }).catch(error => {
+        console.log(error);
         const message =
             (error.response &&
                 error.response.data &&
@@ -108,6 +114,6 @@ export const getLoginUser = () => {
             error: message,
         });
 
-        return Promise.reject();
+        return Promise.reject(message);
     });
 }

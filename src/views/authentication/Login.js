@@ -65,13 +65,16 @@ const Login = () => {
         onSubmit: (values, { setFieldError, setSubmitting }) => {
             login(values.email, values.password)
                 .then(() => {
+                    console.log("登入Success!");
                     navigate("/bistro");
                 }).catch(
                     (error) => {
+                        console.log("登入失敗!");
                         if (error && error.includes('401')) {
                             dispatch({ type: HIDE_ERROR });
                             setFieldError("password", "登入失敗!請檢查是否輸入正確密碼");
                         }
+
 
                     }
                 );

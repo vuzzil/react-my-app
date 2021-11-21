@@ -25,7 +25,8 @@ const Header = ({ handleLeftDrawerToggle }) => {
 
     const user = useSelector((state) => state.auth.user);
     let userinfo = (user && user.username) ? "使用者=" + user.username : "";
-    //console.log("isLoggedIn=" + isLoggedIn + "," + userinfo);
+    let isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    console.log("isLoggedIn=" + isLoggedIn + ",user=" + userinfo);
 
 
     const handleClick = () => {
